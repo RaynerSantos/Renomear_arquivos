@@ -112,6 +112,19 @@ st.title("Renomear Arquivos")
 st.write("")
 st.write("")
 st.write("")
+
+# Exemplo da planilha a ser preenchida
+st.markdown(
+    """
+    📥 [Exemplo da planilha](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2FRaynerSantos%2FRenomear_arquivos%2Frefs%2Fheads%2Fmain%2FRenomear%2FArquivos_Excluir.xlsx&wdOrigin=BROWSELINK)
+    """,
+    unsafe_allow_html=True
+)
+
+st.write("")
+st.write("")
+st.write("")
+
 st.markdown(
     """
     <h5 style="color: white; text-align: center;">
