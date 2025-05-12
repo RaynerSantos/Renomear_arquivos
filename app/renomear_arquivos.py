@@ -157,7 +157,6 @@ with st.form(key="renomear_arquivos_a_excluir"):
 # arquivo_excel = r"C:\PROJETOS\Renomear_arquivos\Renomear\Arquivos_Excluir.xlsx"
 
 if input_buttom_submit and arquivo_excel:
-    arquivo_excel = pd.read_excel(arquivo_excel)
     cont_renomeados = 0
     # Caminho da nova pasta onde os arquivos renomeados serão movidos
     pasta_destino = os.path.join(caminho_arquivos, "Arquivos a Excluir")
