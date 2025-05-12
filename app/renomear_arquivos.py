@@ -10,7 +10,7 @@ st.title("Renomear e Mover Arquivos para Exclusão 🔍 ")
 # Upload de arquivos
 uploaded_zip = st.file_uploader("📁 Faça upload do ZIP com os arquivos", type="zip")
 uploaded_excel = st.file_uploader("📄 Faça upload do Excel com os nomes dos arquivos a excluir", type=["xlsx"])
-tipo_de_arquivo_a_exluir = st.text_input("Extensão dos arquivos a excluir (ex: .xlsx, .mp3)", placeholder=".xlsx")
+tipo_de_arquivo_a_exluir = st.selectbox("Extensão dos arquivos a excluir", options=[".xlsx",".mp3",".WAV",".txt"])
 
 if uploaded_zip and uploaded_excel and tipo_de_arquivo_a_exluir:
     with tempfile.TemporaryDirectory() as temp_dir:
