@@ -117,7 +117,7 @@ st.write("")
 st.markdown(
     """
     A planilha em excel deverá conter na coluna "Nome_Arquivo" os nomes dos arquivos que deverão ser renomeados.
-    
+
     📥 [Exemplo da planilha](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2FRaynerSantos%2FRenomear_arquivos%2Frefs%2Fheads%2Fmain%2FRenomear%2FArquivos_Excluir.xlsx&wdOrigin=BROWSELINK)
     """,
     unsafe_allow_html=True
@@ -136,12 +136,13 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+arquivo_excel = st.file_uploader("📂 Selecione o banco de dados", type=["xlsx"])
+
 with st.form(key="renomear_arquivos_a_excluir"):
     caminho_arquivos = st.text_input(label="Informe o caminho dos arquivos que deseja renomear", 
                                      placeholder="C:\PROJETOS\Renomear_arquivos\Renomear")
-    arquivo_excel = st.text_input(label="Informe o caminho do excel que encontra o nome dos arquivos que serão excluídos",
-                                  placeholder="C:\PROJETOS\Renomear_arquivos\Renomear\Arquivos_Excluir.xlsx")
-    # tipo_de_arquivo_a_exluir = st.text_input(label="Informe o tipo de arquivo que será excluído", placeholder='Exemplo: .xlsx | .mp3 | .txt')
+    # arquivo_excel = st.text_input(label="Informe o caminho do excel que encontra o nome dos arquivos que serão excluídos",
+    #                               placeholder="C:\PROJETOS\Renomear_arquivos\Renomear\Arquivos_Excluir.xlsx")
     tipo_de_arquivo_a_exluir = st.selectbox(label="Informe o tipo de arquivo que será excluído", options=[".xlsx",".mp3",".WAV",".txt"])
     input_buttom_submit = st.form_submit_button("✔️ Renomear")
 
@@ -151,7 +152,8 @@ with st.form(key="renomear_arquivos_a_excluir"):
 # caminho_arquivos = r"C:\PROJETOS\Renomear_arquivos\Renomear"
 # arquivo_excel = r"C:\PROJETOS\Renomear_arquivos\Renomear\Arquivos_Excluir.xlsx"
 
-if input_buttom_submit:
+if input_buttom_submit and arquivo_excel:
+    arquivo_excel = pd.read_excel(arquivo_excel)
     cont_renomeados = 0
     # Caminho da nova pasta onde os arquivos renomeados serão movidos
     pasta_destino = os.path.join(caminho_arquivos, "Arquivos a Excluir")
