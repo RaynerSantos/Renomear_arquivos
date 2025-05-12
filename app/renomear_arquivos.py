@@ -138,6 +138,10 @@ st.markdown(
 
 arquivo_excel = st.file_uploader("📂 Selecione o banco de dados", type=["xlsx"])
 
+st.write("")
+st.write("")
+st.write("")
+
 with st.form(key="renomear_arquivos_a_excluir"):
     caminho_arquivos = st.text_input(label="Informe o caminho dos arquivos que deseja renomear", 
                                      placeholder="C:\PROJETOS\Renomear_arquivos\Renomear")
