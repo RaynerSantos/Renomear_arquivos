@@ -11,6 +11,55 @@ st.title("Renomear e mover arquivos 🔍")
 # Exemplo da planilha a ser preenchida
 st.markdown(
     """
+    <style>
+    /* Cor de fundo da página */
+    [data-testid="stAppViewContainer"] {
+        background-color: #000000;
+    }
+    
+    /* Cor de fundo do cabeçalho */
+    [data-testid="stHeader"] {
+        background-color: #000000;
+    }
+
+    /* Cor de fundo da barra lateral */
+    [data-testid="stSidebar"] {
+        background-color: #333333;
+    }
+
+    /* Cor do título */
+    h1 {
+        color: #20541B; /* white */
+        text-align: center;
+    }
+
+    /* Cor do subtítulo */
+    h2 {
+        color: #FFD700; /* Dourado */
+    }
+
+    /* Cor do texto normal */
+    p, span {
+        color: #FFFFFF; /* Branco */
+    }
+
+    /* Cor dos botões */
+    button {
+        background-color: #20541B !important;
+        color: white !important;
+    }
+
+    /* Muda a cor do texto no menu de configurações */
+    div[data-testid="stDropdownMenu"] * {
+        color: black !important;
+    }
+
+    /* Opcional: ajusta a cor do fundo para contraste */
+    div[data-testid="stDropdownMenu"] {
+        background-color: white !important;
+    }
+    </style>
+    
     A planilha em excel deverá conter na coluna "Nome_Arquivo" os nomes dos arquivos que deverão ser renomeados.
 
     📥 [Exemplo da planilha](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2FRaynerSantos%2FRenomear_arquivos%2Frefs%2Fheads%2Fmain%2FRenomear%2FArquivos_Excluir.xlsx&wdOrigin=BROWSELINK)
