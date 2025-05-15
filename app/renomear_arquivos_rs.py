@@ -147,7 +147,8 @@ with st.form(key="renomear_arquivos_a_excluir"):
                                      placeholder="C:\PROJETOS\Renomear_arquivos\Renomear")
     # arquivo_excel = st.text_input(label="Informe o caminho do excel que encontra o nome dos arquivos que serão excluídos",
     #                               placeholder="C:\PROJETOS\Renomear_arquivos\Renomear\Arquivos_Excluir.xlsx")
-    tipo_de_arquivo_a_exluir = st.selectbox(label="Informe o tipo de arquivo que será excluído", options=[".xlsx",".mp3",".WAV",".txt"])
+    tipo_de_arquivo_a_exluir = st.selectbox(label="Informe o tipo de arquivo que será excluído", 
+                                            options=[[".xlsx", ".mp3", ".WAV", ".txt", ".csv", ".jpg", ".png", ".pdf"]])
     input_buttom_submit = st.form_submit_button("✔️ Renomear")
 
 ###=== Código para renomear arquivos que serão excluídos ===###
