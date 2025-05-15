@@ -8,6 +8,20 @@ from pathlib import Path
 
 st.title("Renomear e mover arquivos 🔍")
 
+# Exemplo da planilha a ser preenchida
+st.markdown(
+    """
+    A planilha em excel deverá conter na coluna "Nome_Arquivo" os nomes dos arquivos que deverão ser renomeados.
+
+    📥 [Exemplo da planilha](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2FRaynerSantos%2FRenomear_arquivos%2Frefs%2Fheads%2Fmain%2FRenomear%2FArquivos_Excluir.xlsx&wdOrigin=BROWSELINK)
+    """,
+    unsafe_allow_html=True
+)
+st.write("")
+st.write("")
+st.write("")
+st.write("")
+
 # Upload de múltiplos arquivos ZIP
 uploaded_zips = st.file_uploader(
     "📁 Faça upload de um ou mais arquivos ZIP", 
@@ -18,9 +32,9 @@ uploaded_excel = st.file_uploader(
     "📄 Faça upload do Excel com os nomes dos arquivos a excluir", 
     type=["xlsx"]
 )
-tipo_de_arquivo_a_excluir = st.text_input(
+tipo_de_arquivo_a_excluir = st.selectbox(
     "Extensão dos arquivos a excluir (ex: .xlsx, .mp3)", 
-    placeholder=".xlsx"
+    options=[".xlsx", ".mp3", ".txt", ".csv", ".jpg", ".png", ".pdf"]
 )
 
 if uploaded_zips and uploaded_excel and tipo_de_arquivo_a_excluir:
