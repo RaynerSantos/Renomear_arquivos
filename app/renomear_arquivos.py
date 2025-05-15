@@ -39,8 +39,7 @@ if uploaded_zips and uploaded_excel and tipo_de_arquivo_a_excluir:
         nomes_a_excluir = set(df["Nome_Arquivo"].dropna().str.strip())
 
         # Cria a pasta de destino na raiz do projeto
-        caminho_script = Path(__file__).resolve().parent
-        raiz_projeto = caminho_script  # Diretório do script 
+        raiz_projeto = Path().resolve()
         pasta_destino = raiz_projeto / "Arquivos a Excluir"
         pasta_destino.mkdir(exist_ok=True)  # Cria se não existir
 
