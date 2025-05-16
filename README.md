@@ -1,32 +1,43 @@
-# Renomeação de arquivos
+# Renomeação de Arquivos por Código
 
-Esta aplicação web permite que você faça upload de arquivos ZIP contendo documentos, planilhas ou outros arquivos, além de um arquivo Excel com os nomes dos arquivos que deseja marcar para exclusão. A aplicação extrai os arquivos ZIP, identifica os arquivos a serem renomeados com base na planilha Excel, renomeia esses arquivos (adicionando o prefixo `Excluir_`) e os move para uma pasta chamada **Arquivos a Excluir** na raiz do projeto.
+## 1. Introdução
 
-## Requisitos
+Esta aplicação web permite que você faça upload de uma planilha Excel contendo os códigos iniciais dos arquivos que deseja renomear em um diretório local do seu computador. A aplicação percorre o diretório informado, identifica os arquivos cujo nome começa com algum dos códigos listados na planilha e os renomeia, adicionando o prefixo `Não_Enviar_` ao nome do arquivo original.
 
-Para executar este projeto, você precisará dos seguintes requisitos instalados em sua máquina:
+---
+
+## 2. Guia de Uso
+
+### Requisitos
 
 - **Python 3.7 ou superior**  
-  [Download Python](https://www.python.org/downloads/)
+- **Pip** (gerenciador de pacotes do Python)
+- **Bibliotecas Python necessárias:**  
+  As dependências do projeto estão listadas no arquivo `requirements.txt`. Você pode instalá-las com:
+  pip install -r requirements.txt
 
-## Como funciona
+As principais bibliotecas utilizadas são:
+- [streamlit](https://streamlit.io/) – para a interface web
+- [pandas](https://pandas.pydata.org/) – para manipulação de dados e leitura de Excel
+- [openpyxl](https://openpyxl.readthedocs.io/) – para leitura de arquivos `.xlsx`
+- Outras bibliotecas padrão do Python: `os`
 
-1. **Preparação dos arquivos**
-  - **Importante:** Para manter um backup dos seus arquivos originais, mantenha a pasta que contém todos os arquivos que podem ou não ser renomeados. Assim, você preserva os arquivos originais e envia apenas uma cópia compactada para o processamento.
-  - Faça upload de um ou mais arquivos ZIP contendo os arquivos que deseja processar.
-  - Faça upload de um arquivo Excel (`.xlsx`) contendo uma coluna chamada `Nome_Arquivo` com os nomes (sem extensão) dos arquivos a serem marcados para exclusão.
-  - Informe a extensão dos arquivos que deseja excluir (exemplo: `.xlsx`, `.pdf`, `.mp3`).
+- **Sistema operacional:**  
+Compatível com Windows, macOS e Linux.
 
-2. **Processamento**
-  - Os arquivos ZIP são extraídos em uma área temporária.
-  - O Excel é lido e os nomes dos arquivos a serem excluídos são identificados.
-  - Para cada arquivo extraído cujo nome base (sem extensão) corresponda a um nome listado no Excel e cuja extensão seja a informada, o arquivo é renomeado (prefixado com `Excluir_`) e movido para a pasta **Arquivos a Excluir** na raiz do projeto.
+- **Recomendação:**  
+Tenha pelo menos **4GB de RAM** para processar pastas grandes com conforto.
 
-3. **Resultado**
-  - Ao final, a aplicação informa quantos arquivos foram encontrados, renomeados e movidos.
-  - Os arquivos renomeados ficam disponíveis na pasta **Arquivos a Excluir**.
+---
 
-## Como usar
+## 3. Passo a passo para utilizar o aplicativo
+
+### 3.1 Preparação dos arquivos
+
+- **Importante:** Para manter um backup dos seus arquivos originais, mantenha uma cópia da pasta que contém todos os arquivos que podem ou não ser renomeados. Assim, você preserva os arquivos originais e pode restaurá-los se necessário.
+- Prepare um arquivo Excel (`.xlsx`) contendo uma coluna chamada **CODIGO** com os códigos (iniciais do nome do arquivo) dos arquivos a serem renomeados.
+
+### 3.2 Executando a aplicação
 
 1. Clone ou baixe este repositório.
 2. Instale as dependências:
@@ -38,28 +49,35 @@ Para executar este projeto, você precisará dos seguintes requisitos instalados
   streamlit run renomear_arquivos.py
   ```
 4. Acesse o endereço exibido pelo Streamlit (geralmente http://localhost:8501) no seu navegador.
-5. Siga as instruções na tela para:
-  - Compactar a pasta de arquivos originais em um ZIP e fazer o upload desse ZIP.
-  - Fazer upload do Excel com os nomes dos arquivos a excluir.
-  - Informar a extensão dos arquivos a serem excluídos.
-6. Após o processamento, verifique a pasta **Arquivos a Excluir** criada na raiz do projeto para encontrar os arquivos renomeados.
+
+### 3.3 Utilizando a aplicação
+
+1. Informe o caminho do diretório local onde estão os arquivos a serem renomeados.
+2. Faça upload do arquivo Excel com os códigos dos arquivos a serem renomeados.
+3. Clique em "Processar arquivos".
+4. Os arquivos cujos nomes começam com algum dos códigos listados na planilha serão renomeados, recebendo o prefixo `Não_Enviar_` no nome.
+5. Ao final, a aplicação exibirá um resumo dos arquivos renomeados e avisará caso algum código não tenha sido encontrado no diretório.
+
+---
 
 ## Estrutura esperada do Excel
 
-O arquivo Excel deve conter uma coluna chamada **Nome_Arquivo** com os nomes base (sem extensão) dos arquivos a serem excluídos. Exemplo:
+O arquivo Excel deve conter uma coluna chamada **CODIGO** com os códigos iniciais dos arquivos a serem renomeados. Exemplo:
 
-| Nome_Arquivo   |
-|----------------|
-| arquivo1       |
-| documento2     |
-| musica_teste   |
+| CODIGO      |
+|-------------|
+| 12345       |
+| 67890       |
+| ABCD        |
+
+---
 
 ## Observações
 
-- Apenas arquivos ZIP podem ser enviados para upload.
-- **Antes de fazer o upload, compacte a pasta de arquivos originais em um arquivo ZIP e mantenha essa pasta original guardada em um local seguro como backup.** Assim, caso precise recuperar algum arquivo ou desfazer alterações, você terá sempre uma cópia íntegra dos seus dados originais.
-- A pasta **Arquivos a Excluir** será criada automaticamente na raiz do projeto.
-- Certifique-se de que os nomes no Excel correspondam exatamente aos nomes dos arquivos (sem extensão) presentes nos arquivos ZIP.
-- A aplicação não exclui arquivos originais, apenas move e renomeia os arquivos identificados a partir do ZIP enviado.
+- O diretório informado deve existir e conter os arquivos a serem renomeados.
+- **Antes de processar, mantenha uma cópia da pasta original como backup.** Assim, caso precise recuperar algum arquivo ou desfazer alterações, você terá sempre uma cópia íntegra dos seus dados originais.
+- Certifique-se de que os códigos no Excel correspondem exatamente ao início do nome dos arquivos no diretório.
+- A aplicação não exclui arquivos, apenas renomeia os arquivos identificados no diretório informado.
+- O prefixo padrão adicionado é `Não_Enviar_`, mas você pode alterar isso no código se desejar.
 
 ---
