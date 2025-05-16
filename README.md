@@ -1,4 +1,4 @@
-# Renomear e Mover Arquivos para Exclusão
+# Renomeação de arquivos
 
 Esta aplicação web permite que você faça upload de arquivos ZIP contendo documentos, planilhas ou outros arquivos, além de um arquivo Excel com os nomes dos arquivos que deseja marcar para exclusão. A aplicação extrai os arquivos ZIP, identifica os arquivos a serem renomeados com base na planilha Excel, renomeia esses arquivos (adicionando o prefixo `Excluir_`) e os move para uma pasta chamada **Arquivos a Excluir** na raiz do projeto.
 
