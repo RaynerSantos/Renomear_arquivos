@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import streamlit as st
+import shutil
 
 st.title("Renomeação de arquivos 🔍")
 
@@ -36,6 +37,11 @@ with st.form(key="processamento_form"):
         "📄 Faça upload do Excel com os nomes dos arquivos a renomear",
         type=["xlsx"]
     )
+    diretorio_destino = st.text_input(
+        "📂 (Opcional) Caminho do diretório para mover os arquivos renomeados",
+        help="Se preenchido, os arquivos renomeados serão movidos para esse diretório."
+    )
+
     col1, col2 = st.columns([3, 1])
     with col2:
         processar = st.form_submit_button("Processar arquivos")
@@ -45,9 +51,10 @@ if processar:
         st.error("❌ Por favor, informe o diretório e faça upload do Excel antes de processar.")
     elif not os.path.isdir(diretorio_arquivos):
         st.error("❌ O diretório informado não existe. Por favor, verifique o caminho.")
+    elif diretorio_destino and not os.path.isabs(diretorio_destino):
+        st.error("❌ O diretório de destino deve ser um caminho absoluto.")
     else:
         try:
-            # Lê o Excel
             df = pd.read_excel(uploaded_excel, dtype=str)
             if "CODIGO" not in df.columns:
                 st.error("❌ A coluna 'CODIGO' não foi encontrada no Excel.")
@@ -55,6 +62,7 @@ if processar:
                 nomes_a_renomear = set(df["CODIGO"].dropna().str.strip())
 
                 arquivos_renomeados = set()
+                arquivos_movidos = set()
                 nomes_encontrados = set()
 
                 for raiz, _, arquivos in os.walk(diretorio_arquivos):
@@ -63,16 +71,29 @@ if processar:
                         for codigo in nomes_a_renomear:
                             if nome_base.startswith(str(codigo)):
                                 caminho_origem = os.path.join(raiz, arquivo)
-                                novo_nome = f"Não_Enviar_{arquivo}"
-                                caminho_destino = os.path.join(raiz, novo_nome)
-                                os.rename(caminho_origem, caminho_destino)
+                                novo_nome = f"Enviar_{arquivo}"
+                                caminho_renomeado = os.path.join(raiz, novo_nome)
+                                # Renomeia
+                                os.rename(caminho_origem, caminho_renomeado)
                                 arquivos_renomeados.add(arquivo)
                                 nomes_encontrados.add(codigo)
-                                break  # evita renomear o mesmo arquivo mais de uma vez
+                                # Move se o diretório de destino foi informado
+                                if diretorio_destino:
+                                    if not os.path.exists(diretorio_destino):
+                                        os.makedirs(diretorio_destino)
+                                    caminho_final = os.path.join(diretorio_destino, novo_nome)
+                                    if not os.path.exists(caminho_final):
+                                        shutil.move(caminho_renomeado, caminho_final)
+                                        arquivos_movidos.add(novo_nome)
+                                    else:
+                                        st.warning(f"O arquivo '{novo_nome}' já existe no diretório de destino e não foi movido.")
+                                break  # evita renomear/mover o mesmo arquivo mais de uma vez
 
                 arquivos_nao_encontrados = nomes_a_renomear - nomes_encontrados
 
                 st.success(f"✅ {len(arquivos_renomeados)} arquivo(s) renomeado(s) com sucesso.")
+                if diretorio_destino:
+                    st.info(f"📂 {len(arquivos_movidos)} arquivo(s) movido(s) para '{diretorio_destino}'.")
                 if arquivos_nao_encontrados:
                     st.warning(
                         f"⚠️ Os seguintes códigos listados no Excel não foram encontrados no diretório:"
