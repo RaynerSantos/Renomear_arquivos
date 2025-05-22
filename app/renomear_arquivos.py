@@ -68,7 +68,7 @@ if processar:
                                 os.rename(caminho_origem, caminho_destino)
                                 arquivos_renomeados.add(arquivo)
                                 nomes_encontrados.add(codigo)
-                                break  # evita renomear o mesmo arquivo mais de uma vez
+                                break  
 
                 arquivos_nao_encontrados = nomes_a_renomear - nomes_encontrados
 
